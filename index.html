@@ -166,6 +166,7 @@
             transform: translateY(0);
             opacity: 1;
         }
+        /* ALWAYS VISIBLE ADMIN BUTTON */
         .admin-toggle {
             position: fixed;
             bottom: 20px;
@@ -175,17 +176,23 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 999;
             box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
             font-size: 20px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         .admin-panel {
             position: fixed;
-            bottom: 20px;
+            bottom: 80px;
             right: 20px;
             background: #222;
             padding: 20px;
@@ -304,6 +311,7 @@
         <p>© 2023 CineMagic - Dive into the world of cinema</p>
     </footer>
     
+    <!-- ALWAYS VISIBLE BUTTON (now with pulsating animation) -->
     <div class="admin-toggle" id="adminToggle">+</div>
     
     <div class="admin-panel" id="adminPanel">
@@ -446,8 +454,8 @@
             if(input === ADMIN_PASSWORD) {
                 adminMode = true;
                 document.getElementById('passwordPrompt').style.display = 'none';
-                document.getElementById('adminToggle').style.display = 'flex';
                 document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('adminToggle').style.animation = 'none'; // Stop pulsating after auth
             } else {
                 document.getElementById('passwordError').style.display = 'block';
             }
@@ -480,13 +488,6 @@
                 alert('Please fill required fields: Title, Poster URL and Link');
             }
         }
-
-        // Secret key combo (Ctrl+Alt+A) to show password prompt
-        document.addEventListener('keydown', (e) => {
-            if(e.ctrlKey && e.altKey && e.key === 'a') {
-                showPasswordPrompt();
-            }
-        });
 
         // Initialize page
         window.addEventListener('DOMContentLoaded', initializePage);
