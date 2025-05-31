@@ -1,0 +1,2 @@
+# CineMagic
+only movies
